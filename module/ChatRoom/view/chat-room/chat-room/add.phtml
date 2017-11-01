@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Create a New Chat Room</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <?= $this->form()->openTag($form) ?>
+        <?= $this->formElement($form->get($form->getName() . '_csrf')) ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <?= $this->formRow($form->get('name')) ?>
+                </div>
+                <div class="form-group">
+                    <?= $this->formRow($form->get('chat_room_image')) ?>
+                </div>
+                <div class="form-group">
+                    <label>Visibility</label>
+                    <div class="radio">
+                        <label><input type="radio" name="visibility" value="0" required>All</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="visibility" value="1">Registered</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Access Level</label>
+                    <div class="radio">
+                        <label><input type="radio" name="access_level" value="0" required>Public</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="access_level" value="1">Private</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div>
+                    <p>
+                        <em>Private Link:</em>&nbsp;<?= $this->privateLink ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <?= $this->formSubmit($form->get('create')) ?>
+            </div>
+        </div>
+        <?= $this->form()->closeTag() ?>
+    </div>
+</div>

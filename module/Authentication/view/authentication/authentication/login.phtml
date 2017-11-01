@@ -1,0 +1,26 @@
+<?= $this->form()->openTag($form) ?>
+<?= $this->formElement($form->get($form->getName() . '_csrf')) ?>
+<div class="row">
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-4">
+            <?= $this->formElement($form->get('identity')) ?>
+        </div>
+    </div>
+</div>
+&nbsp;
+<div class="row">
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-4">
+            <?= $this->formElement($form->get('credential')) ?>
+        </div>
+    </div>
+</div>
+&nbsp;
+<div class="row">
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-4">
+            <?= $this->formElement($form->get('submit')) ?>
+        </div>
+    </div>
+</div>
+<?= $this->form()->closeTag() ?>

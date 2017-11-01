@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="page-header">Chat Rooms</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <a href="<?= $this->url('chat-rooms/add') ?>" class="btn btn-lg btn-primary">
+            Create New Chatroom
+        </a>
+    </div>
+</div>
+&nbsp;
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Visibility</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php /** @var \ChatRoom\Entity\ChatRoomTableRow $chatRoom */ ?>
+            <?php foreach ($this->chatRooms as $chatRoom): ?>
+                <tr>
+                    <td><?= $chatRoom->getName() ?></td>
+                    <td><img src="<?= $this->basePath() . $chatRoom->getChatRoomImage() ?>" width="100px" height="100px"></td>
+                    <td><?= \ChatRoom\Service\ChatRoomService::$visibility[$chatRoom->getVisibility()] ?></td>
+                    <td>
+                        <a href="<?= $this->url('chat', ['chat_room_id' => $chatRoom->getId()]) ?>" class="btn btn-success">
+                            Enter
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1 align="center"><?= $this->chatRoom['name'] ?></h1>
+        <img src="<?= $this->basePath() . $this->chatRoom['chat_room_image'] ?>" align="center">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <div>Welcome, <strong><?= $this->username ?></strong></div>
+        </div>
+        <div id="chat-box">
+            <div id="inner">
+                <?php /** @var \Chat\Entity\MessageChatBoxRow $message */ ?>
+                <?php foreach ($this->chatRoomMessages as $message): ?>
+                    <div class="row">
+                        <p>
+                            <?= $message->getUsername() . ': ' . $message->getContent() ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?= $this->form()->openTag($form) ?>
+        <?= $this->formElement($form->get($form->getName() . '_csrf')) ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <?= $this->formRow($form->get('message_content')) ?>
+                </div>
+                <div class="form-group">
+                    <?= $this->formRow($form->get('send')) ?>
+                </div>
+            </div>
+        </div>
+        <?= $this->form()->closeTag() ?>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    var $inner = $('#inner');
+
+    function updateChat(){
+        $.ajax({
+            url: '<?= $this->url('chat/update-chat', ['chat_room_id' => $this->chatRoom['id']]) ?>',
+            cache: false,
+            success: function(messages){
+                var content = '';
+
+                messages.forEach(function (message) {
+                    content += '<div class="row"><p>' + message['username'] + ': ' + message['content'] + '</p></div>';
+                });
+
+                $inner.empty();
+                $inner.append(content);
+            }
+        });
+    }
+
+    setInterval (updateChat, 2500);
+});
+</script>
+<style>
+    #chat-box {
+        max-height: 250px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-left: 25px;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+    }
+</style>
